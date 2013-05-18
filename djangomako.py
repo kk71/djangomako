@@ -70,8 +70,8 @@ argument:
 			for s in glob(tmpldir+"*"):
 				if s[-1:]=="~":continue
 				s=s[len(tmpldir):]
-				t+='<a href=\"'+s+'\">'+s+"</p>"
-			s+="<br>"
+				t+='<a href=\"'+s+'\">'+s+"</a>"
+			t+="<br>"
 		t+='''
 </body> 
 </html>
