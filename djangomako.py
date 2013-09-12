@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-__version__="0.2"
+__version__="0.2.1"
 '''
 django-mako template connection module
-version 0.2, for django1.5+
+version 0.2, for django1.5+,py3.3+
 
 author: kk(fkfkbill@gmail.com)
 '''
@@ -22,10 +22,9 @@ djlookup=TemplateLookup(directories=settings.TEMPLATE_DIRS,input_encoding="utf-8
 
 
 
-#==============================================================
 def render_to_string(template_name,
-		dictionary=None,
-		request=None,
+        dictionary=None,
+        request=None,
         tmpldir=None):
     '''
 render a template to a string(like render_to_string django.template.loader)
@@ -42,30 +41,28 @@ render a template to a string(like render_to_string django.template.loader)
 	
 
 
-#==============================================================
 def render_to_response(template_name,
-		dictionary={},
-		content_type="text/html",
-		request=None,
-		status=200,
+        dictionary={},
+        content_type="text/html",
+        request=None,
+        status=200,
         tmpldir=None):
-	'''
+    '''
 a simple http response method just like django's
 for easy alternativity
 '''
-	page=render_to_string(template_name,dictionary,request,tmpldir=tmpldir)
-	return HttpResponse(content=page,content_type=content_type,status=status)
+    page=render_to_string(template_name,dictionary,request,tmpldir=tmpldir)
+    return HttpResponse(content=page,content_type=content_type,status=status)
 
 
 
-#==============================================================
 def tmpldebug(request,tmpl=""):
-	'''
+    '''
 argument:
 	tmpl:specific template file name.
 '''
-	if tmpl=="":
-		t='''
+    if tmpl=="":
+        t='''
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,19 +70,18 @@ argument:
 </head>
 <body>
 '''
-		for tmpldir in settings.TEMPLATE_DIRS:
-			if tmpldir[-1]!="/":tmpldir+="/"
-			t+="<h2>"+tmpldir+"</h2>"
-			for s in glob(tmpldir+"*"):
-				if s[-1:]=="~":continue
-				s=s[len(tmpldir):]
-				t+='<p><a href=\"'+s+'\">'+s+"</a></p>"
-			t+="<br>"
-		t+='''
+        for tmpldir in settings.TEMPLATE_DIRS:
+            if tmpldir[-1]!="/":tmpldir+="/"
+            t+="<h2>"+tmpldir+"</h2>"
+            for s in glob(tmpldir+"*"):
+                if s[-1:]=="~":continue
+                s=s[len(tmpldir):]
+                t+='<p><a href=\"'+s+'\">'+s+"</a></p>"
+            t+="<br>"
+        t+='''
 </body> 
 </html>
 '''
-		return HttpResponse(t)
-
-	else:
-		return render_to_response(tmpl,{})
+        return HttpResponse(t)
+    else:
+        return render_to_response(tmpl,{})
